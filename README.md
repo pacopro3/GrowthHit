@@ -30,7 +30,7 @@ mysql> create user 'springuser'@'%' identified by 'ThePassword'; -- Crea el usua
 mysql> grant all on db_example.* to 'springuser'@'%'; -- Asigna todos los privilegios de la base de datos al usuario que hemos creado
 ```
 
-_Esta configuración nos será de utilidad para modificar el archivo "application.properties" que se encuentra en la siguiente dirección de la raíz de nuestro proyecto:
+_Esta configuración nos será de utilidad para modificar el archivo "application.properties" que se encuentra en la siguiente dirección de la raíz de nuestro proyecto:_
 
 ```
 .>src>resources>application.properties
@@ -45,7 +45,7 @@ spring.datasource.password=ThePassword
 spring.datasource.driver-class-name =com.mysql.jdbc.Driver
 ```
 
-### Instalación y ejecución 🔧🔧
+### Instalación y ejecución 💻💡
 
 _Para levantar nuestro servicio RestAPI tenemos que abrir una terminal en la raíz de nuestro proyecto, y ejecutar la siguiente instrucción:_
 ```
@@ -56,7 +56,7 @@ _Para el caso de Windows es necesario que la variable de entorno de Maven esté 
 
 _Una vez se haya ejecutado el servidor podremos realizar las pruebas de ejecución con "curl", la cual es una herramienta de línea de comandos para transferencia de datos con URL's_
 
-_A continuación se muestra un ejemplo de ejecución con CURL:_
+_Como primera parte del proyecto se implementa la ejecución de una solicitud HTTP GET como se muestra a continuación:_
 ```
 C:\Users\Sweet>curl --location --request GET localhost:8080/hit/test3 --header accept:application/json
 ```
@@ -73,6 +73,20 @@ _Podemos usar cualquier tipo de KEY que contenga números o letras, esto se encu
 _En caso de que no especifiquemos el header en la instrucción curl que ejecutemos esta nos regresará un mensaje de error indicando el código de error 400 BAD REQUEST, como el que se muestra a continuación:_
 ```
 {"timestamp":"2021-08-17T03:10:49.435+00:00","status":400,"error":"Bad Request","path":"/hit/test4"}curl: (6) Could not resolve host: application
+```
+
+_Como segunda parte del proyecto se realiza la implementación de una solicitud HTTP GET como se muestra a continuación:_
+```
+C:\Users\Sweet>curl --location --request GET localhost:8080/hit --header accept:application/json
+```
+
+_Dicha instrucción devuelve un formato JSON, en el cual se encuentran todas las KEY alojadas en nuestra Base de Datos y la cantidad de veces que se ha solicitado._
+```
+[{"key":"test1","hits":15},{"key":"test2","hits":8},{"key":"test3","hits":4}]
+```
+_En caso de que se presente algún error durante la ejecución de la instrucción esta nos regresará un mensaje de error indicando el código de error 409 CONFLICT, como el que se muestra a continuación:_
+```
+{"timestamp":"2021-08-19T08:11:20.215+00:00","status":409,"error":"Conflict","path":"/hit"}curl: (6) Could not resolve host: application
 ```
 
 ## Conclusiones 💬
