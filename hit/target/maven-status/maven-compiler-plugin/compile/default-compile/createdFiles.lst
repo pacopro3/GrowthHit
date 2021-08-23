@@ -1,0 +1,8 @@
+com\example\hit\entity\HitEntity.class
+com\example\hit\interf\HitInterface.class
+com\example\hit\rabbitmq\producer\SendMessageController.class
+com\example\hit\rabbitmq\ConfigureRabbitMq.class
+com\example\hit\rabbitmq\consumer\ReceiveMessageHandler.class
+com\example\hit\entity\HitRespuesta.class
+com\example\hit\HitApplication.class
+com\example\hit\rabbitmq\producer\SendMessageController$1.class

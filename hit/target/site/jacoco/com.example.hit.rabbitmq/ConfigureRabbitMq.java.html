@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ConfigureRabbitMq.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">hit</a> &gt; <a href="index.source.html" class="el_package">com.example.hit.rabbitmq</a> &gt; <span class="el_source">ConfigureRabbitMq.java</span></div><h1>ConfigureRabbitMq.java</h1><pre class="source lang-java linenums">package com.example.hit.rabbitmq;
+
+import com.example.hit.rabbitmq.consumer.ReceiveMessageHandler;
+import org.springframework.amqp.core.Binding;
+import org.springframework.amqp.core.BindingBuilder;
+import org.springframework.amqp.core.Queue;
+import org.springframework.amqp.core.TopicExchange;
+import org.springframework.amqp.rabbit.connection.ConnectionFactory;
+import org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer;
+import org.springframework.amqp.rabbit.listener.adapter.MessageListenerAdapter;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
+<span class="fc" id="L15">public class ConfigureRabbitMq {</span>
+
+    public static final String EXCHANGE_NAME = &quot;Pacoexchange&quot;;
+    public static final String QUEUE_NAME = &quot;Pacoqueue&quot;;
+    public static final String QUEUE_NAME1 = &quot;PacoqueueR&quot;;
+
+
+    @Bean
+    Queue createQueue() {
+<span class="fc" id="L24">        return new Queue(QUEUE_NAME, true, false, false);</span>
+    }
+
+    @Bean
+    TopicExchange exchange(){
+<span class="fc" id="L29">        return new TopicExchange(EXCHANGE_NAME);</span>
+    }
+
+    @Bean
+    Binding binding(TopicExchange exchange){
+<span class="fc" id="L34">        return BindingBuilder.bind(createQueue()).to(exchange).with(createQueue().getName());</span>
+    }
+    
+    @Bean
+    SimpleMessageListenerContainer container(ConnectionFactory connectionFactory
+            , ReceiveMessageHandler handler){
+<span class="fc" id="L40">        SimpleMessageListenerContainer container = new SimpleMessageListenerContainer();</span>
+<span class="fc" id="L41">        container.setConnectionFactory(connectionFactory);</span>
+<span class="fc" id="L42">        container.setQueueNames(QUEUE_NAME);</span>
+<span class="fc" id="L43">        container.setMessageListener(new MessageListenerAdapter(handler,&quot;handleMessage&quot;));</span>
+<span class="fc" id="L44">        return container;</span>
+    }
+    
+    @Bean
+    Queue createQueue1() {
+<span class="fc" id="L49">        return new Queue(QUEUE_NAME1, true, false, false);</span>
+    }
+
+    @Bean
+    Binding binding1(TopicExchange exchange){
+<span class="fc" id="L54">        return BindingBuilder.bind(createQueue1()).to(exchange).with(createQueue1().getName());</span>
+    }
+
+    @Bean
+    SimpleMessageListenerContainer container1(ConnectionFactory connectionFactory
+            , ReceiveMessageHandler handler1){
+<span class="fc" id="L60">        SimpleMessageListenerContainer container1 = new SimpleMessageListenerContainer();</span>
+<span class="fc" id="L61">        container1.setConnectionFactory(connectionFactory);</span>
+<span class="fc" id="L62">        container1.setQueueNames(QUEUE_NAME1);</span>
+<span class="fc" id="L63">        container1.setMessageListener(new MessageListenerAdapter(handler1,&quot;fetchAll&quot;));</span>
+<span class="fc" id="L64">        return container1;</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
