@@ -27,40 +27,40 @@ public class ReceiveMessageHandler{
 <span class="fc" id="L27">    }</span>
 
     public int handleMessage(String messageBody){
-<span class="nc" id="L30">        System.out.println(&quot;Mensaje recibido&quot;);</span>
-<span class="nc" id="L31">        HitEntity entidad = new HitEntity();</span>
-<span class="nc" id="L32">        entidad.setHits(messageBody);</span>
-<span class="nc" id="L33">        entidad.setCount(0);</span>
-<span class="nc" id="L34">        Iterable&lt;HitEntity&gt; optional = hitInterface.findAll();</span>
-<span class="nc bnc" id="L35" title="All 2 branches missed.">        for(HitEntity data:optional){</span>
-<span class="nc bnc" id="L36" title="All 2 branches missed.">            if(data.getHits().equals(messageBody)){</span>
-<span class="nc" id="L37">                Optional&lt;HitEntity&gt; opt = hitInterface.findById(data.getId());</span>
-<span class="nc" id="L38">                entidad = opt.get();</span>
-<span class="nc" id="L39">                break;</span>
+<span class="fc" id="L30">        System.out.println(&quot;Mensaje recibido&quot;);</span>
+<span class="fc" id="L31">        HitEntity entidad = new HitEntity();</span>
+<span class="fc" id="L32">        entidad.setHits(messageBody);</span>
+<span class="fc" id="L33">        entidad.setCount(0);</span>
+<span class="fc" id="L34">        Iterable&lt;HitEntity&gt; optional = hitInterface.findAll();</span>
+<span class="fc bfc" id="L35" title="All 2 branches covered.">        for(HitEntity data:optional){</span>
+<span class="pc bpc" id="L36" title="1 of 2 branches missed.">            if(data.getHits().equals(messageBody)){</span>
+<span class="fc" id="L37">                Optional&lt;HitEntity&gt; opt = hitInterface.findById(data.getId());</span>
+<span class="fc" id="L38">                entidad = opt.get();</span>
+<span class="fc" id="L39">                break;</span>
             }
-        }
-<span class="nc" id="L42">        entidad.setCount(entidad.getCount() + 1);</span>
-<span class="nc" id="L43">        hitInterface.save(entidad);</span>
-<span class="nc" id="L44">        return entidad.getCount();</span>
+<span class="nc" id="L41">        }</span>
+<span class="fc" id="L42">        entidad.setCount(entidad.getCount() + 1);</span>
+<span class="fc" id="L43">        hitInterface.save(entidad);</span>
+<span class="fc" id="L44">        return entidad.getCount();</span>
     }
 
     public String fetchAll(int messageBody){
-<span class="nc" id="L48">        System.out.println(&quot;Mensaje sector 2 recibido&quot;);</span>
-<span class="nc" id="L49">        List&lt;HitRespuesta&gt; lista = new ArrayList&lt;HitRespuesta&gt;();</span>
-<span class="nc" id="L50">        Iterable&lt;HitEntity&gt; optional = hitInterface.findAll();</span>
-<span class="nc bnc" id="L51" title="All 2 branches missed.">        for(HitEntity data:optional){</span>
-<span class="nc" id="L52">            HitRespuesta temp = new HitRespuesta();</span>
-<span class="nc" id="L53">            temp.setKey(data.getHits());</span>
-<span class="nc" id="L54">            temp.setHits(data.getCount());</span>
-<span class="nc" id="L55">            lista.add(temp);</span>
-        }
-<span class="nc" id="L57">        ObjectMapper objectMapper = new ObjectMapper();</span>
+<span class="fc" id="L48">        System.out.println(&quot;Mensaje sector 2 recibido&quot;);</span>
+<span class="fc" id="L49">        List&lt;HitRespuesta&gt; lista = new ArrayList&lt;HitRespuesta&gt;();</span>
+<span class="fc" id="L50">        Iterable&lt;HitEntity&gt; optional = hitInterface.findAll();</span>
+<span class="fc bfc" id="L51" title="All 2 branches covered.">        for(HitEntity data:optional){</span>
+<span class="fc" id="L52">            HitRespuesta temp = new HitRespuesta();</span>
+<span class="fc" id="L53">            temp.setKey(data.getHits());</span>
+<span class="fc" id="L54">            temp.setHits(data.getCount());</span>
+<span class="fc" id="L55">            lista.add(temp);</span>
+<span class="fc" id="L56">        }</span>
+<span class="fc" id="L57">        ObjectMapper objectMapper = new ObjectMapper();</span>
         //Set pretty printing of json
-<span class="nc" id="L59">        objectMapper.enable(SerializationFeature.INDENT_OUTPUT);</span>
+<span class="fc" id="L59">        objectMapper.enable(SerializationFeature.INDENT_OUTPUT);</span>
         String arrayToJson;
         try {
-<span class="nc" id="L62">            arrayToJson = objectMapper.writeValueAsString(lista);</span>
-<span class="nc" id="L63">            return arrayToJson;</span>
+<span class="fc" id="L62">            arrayToJson = objectMapper.writeValueAsString(lista);</span>
+<span class="fc" id="L63">            return arrayToJson;</span>
 <span class="nc" id="L64">        } catch (JsonProcessingException e) {</span>
 <span class="nc" id="L65">            e.printStackTrace();</span>
 <span class="nc" id="L66">            return e.toString();</span>

@@ -1,8 +1,8 @@
 GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
 hit,com.example.hit.rabbitmq,ConfigureRabbitMq,0,92,0,0,0,16,0,8,0,8
-hit,com.example.hit.entity,HitRespuesta,17,0,0,0,7,0,5,0,5,0
-hit,com.example.hit.entity,HitEntity,21,3,0,0,9,1,6,1,6,1
+hit,com.example.hit.entity,HitRespuesta,0,17,0,0,0,7,0,5,0,5
+hit,com.example.hit.entity,HitEntity,0,24,0,0,0,10,0,7,0,7
 hit,com.example.hit.rabbitmq.producer,SendMessageController.new TypeReference() {...},6,0,0,0,1,0,1,0,1,0
 hit,com.example.hit.rabbitmq.producer,SendMessageController,98,6,4,0,20,3,4,1,2,1
 hit,com.example.hit,HitApplication,5,3,0,0,2,1,1,1,1,1
-hit,com.example.hit.rabbitmq.consumer,ReceiveMessageHandler,117,6,6,0,28,3,5,1,2,1
+hit,com.example.hit.rabbitmq.consumer,ReceiveMessageHandler,7,116,1,5,4,29,1,5,0,3
