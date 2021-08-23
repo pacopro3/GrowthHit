@@ -6,7 +6,7 @@ _Se implementa una RestAPI con Spring-boot, RabbitMQ y MySQL_
 
 _Estas instrucciones te permitirán obtener una copia del proyecto en funcionamiento en tu máquina local para propósitos de desarrollo y pruebas._
 
-### Pre-requisitos 📋
+### Pre-requisitos 📌
 
 _Para el uso correcto de esta implementación es necesario tener pre-instalado el JDK de Java, Maven, MySQL Server y RabbitMQ Server._
 _Para el caso de instalarse en Windows, es necesario tener dadas de alta las variables de entorno en el sistema, para su correcta ejecución._
@@ -49,7 +49,7 @@ spring.datasource.driver-class-name =com.mysql.jdbc.Driver
 
 _Para levantar nuestro servicio RestAPI tenemos que abrir una terminal en la raíz de nuestro proyecto, y ejecutar la siguiente instrucción:_
 ```
-./mvnw spring-boot:run
+./mvn spring-boot:run
 ```
 
 _Para el caso de Windows es necesario que la variable de entorno de Maven esté bien implementada para que se ejecute dicha instrucción_
@@ -89,11 +89,37 @@ _En caso de que se presente algún error durante la ejecución de la instrucció
 {"timestamp":"2021-08-19T08:11:20.215+00:00","status":409,"error":"Conflict","path":"/hit"}curl: (6) Could not resolve host: application
 ```
 
+##Test Unitario 📋
+_Un test unitario es una forma de comprobar que un fragmento de código funciona correctamente, para este test se realizaron los test suficientes que nos ayudaron a completar el 50% de "coding coverage". Para validar que esto sea correcto se utilizó el plugin JaCoCo, el cual nos ayuda a realizar un mapeo del código que vamos cubriendo en forma de reporte, la representación de este se realiza a través de una página web._
+
+
+_Para comenzar a realizar nuestro test unitario es necesario ingresar a la base de datos que tenemos creada y eliminar los datos que tenemos en ella almacenados con la siguiente instrucción:_ 
+```
+delete from hit_entity;
+```
+
+_Posteriormente es necesario realizar un clean del cliente jaCoCo con la siguiente instrucción de Maven(estas instrucciones se deben ejecutar en una terminal en la raíz de nuestro proyecto):_
+```
+mvn clean jacoco:prepare-agent
+```
+
+_Una vez haya terminado la ejecución anterior procederemos a inicializar nuestro test, para esto ejecutaremos de igual manera la siguiente instrucción:_
+```
+mvn test
+```
+
+_Durante la ejecución de la instrucción anterior podremos visualizar en la terminal como se inicializa nuestro proyecto y se ejecutan nuestro test unitario. En caso de haber realizado esto de forma correcta podremos realizar la revisión del informa que JaCoCo nos genera en la siguiente ubicación:_
+```
+.>target>site>jacoco>index.html
+```
+
+_Al abrir el archivo podremos visualizar a detalle las partes que nuestro test ha cubierto, la cantidad de instrucciones cubiertas, las partes faltantes por cubrir de nuestro código, entre muchas otras cosas que nos pueden ser de utilidad para saber si el funcionamiento de nuestro código es el esperado._
+
 ## Conclusiones 💬
 
 _La implementación de una RestAPI en Spring-boot resulta bastanmte sencilla cuando se siguen paso a paso las guías que se encuentran en la documentación de la página oficial, de igual manera la implementación individual de RabbitMQ con Spring y la implementación individual de Spring-boot con MySQL, sin embargo, el verdadero desafío se encuentra en realizar una integración completa entre las 3 herramientas, ya que las implementaciones estandar que Spring nos brinda para poder manipular entidades dentro de nuestra RestAPI no siempre son compatibles con la forma en la que RabbitMQ o MySQL manipulan la información._
 
-_Este desafío me hizo darme cuenta del mundo que es Java, que existen muchas herramientas que aún no conozco y que sin lugar a dudas brindan una gran ayuda para agilizar y realizar desarrollos más ágiles orientados a la productividad y a los resultados._
+_Este desafío ayuda a darnos cuenta del mundo que es Java, de la existencia de muchas herramientas que brindan una gran ayuda para agilizar y realizar desarrollos ágiles orientados a la productividad y a los resultados._
 
 
 ## Construido con 🛠️
